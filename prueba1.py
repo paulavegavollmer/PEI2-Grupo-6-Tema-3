@@ -28,13 +28,18 @@ v_vuelo = 800 * np.sin(np.pi * t_vuelo / 60) * np.exp(-0.02 * t_vuelo)
 
 #---------------------------------------------------------------------------------------
 # APARTADO 1 - BALANCE DE MASAS
-from sistemalineal import my_Gauss
-print("La fuerza de reaccion en cada apoyo es:",(my_Gauss(matriz_estatica, vector_cargas)))
+from sistemalineal import my_Gauss, my_Jacobi, my_jacobi, my_jacobi_ia
+#print("La fuerza de reaccion en cada apoyo es:",(my_Gauss(matriz_estatica, vector_cargas)))
+# print("La fuerza de reaccion en cada apoyo es:",(my_Jacobi(matriz_estatica, vector_cargas)))
+#print("La fuerza de reaccion en cada apoyo es:",(my_jacobi_ia(matriz_estatica, vector_cargas)))
+# print(np.linalg.solve(matriz_estatica, vector_cargas))
+
 
 # APARTADO 2 - CALIBRACIÓN DEL MOTOR
 x = voltaje_sensor = np.array([0.0, 1.25, 2.45, 3.80, 5.10])
 y = fuerza_real = np.array([0.0, 15.2, 31.0, 48.5, 65.3])
 m_c = np.polyfit(x, y, 1)
+#print(m_c)
 xn = np.linspace(0, 5.5, 10) 
 yn = np.polyval(m_c, xn) 
 plt.scatter(x, y, color = "red", label='Datos experimentales') 
@@ -44,6 +49,6 @@ plt.title('Calibración del sensor de empuje')
 plt.plot(xn, yn, color = "blue", label='Ajuste lineal') 
 plt.legend() 
 plt.grid(True) 
-plt.show() 
+#plt.show() 
 
 #APARTADO 3 - PERFIL ATMOSFERICO
